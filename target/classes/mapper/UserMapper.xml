@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shane.smbms.dao.UserDao">
+    <insert id="insertUser" parameterType="User" useGeneratedKeys="true" keyProperty="user.userCode">
+        <selectKey keyProperty="user.userCode" resultType="java.lang.String" order="BEFORE">
+            select REPLACE(uuid(),'-','')
+        </selectKey>
+        insert into smbms_user
+        (userCode, userName, userPassword, gender, birthday, phone, address, userType, createdBy, creationDate, modifyBy, modifyDate)
+        values
+        (#{user.userCode},#{user.userName},#{user.userPassword},#{user.gender},#{user.birthday},#{user.phone},#{user.address},#{user.userType},#{user.createdBy},#{user.creationDate},#{user.modifyBy},#{user.modifyDate})
+    </insert>
+
+    <update id="updateUser" parameterType="User">
+        update  smbms_user
+        set
+        userName=#{user.userName}, gender=#{user.gender}, birthday=#{user.birthday}, phone=#{user.phone}, address=#{user.address}, userType=#{user.userType}, modifyBy=#{user.modifyBy}, modifyDate=#{user.modifyDate}
+        where
+        id=#{user.id}
+    </update>
+</mapper>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shane.smbms.dao.BillDao">
+    <insert id="insertBill" parameterType="Bill" useGeneratedKeys="true" keyProperty="bill.billCode">
+        <selectKey keyProperty="bill.billCode" resultType="java.lang.String" order="BEFORE">
+            select REPLACE(uuid(),'-','')
+        </selectKey>
+        insert into smbms_bill
+        (billCode, proCode, productName, productDesc, productUnit, productCount, totalPrice, isPayment, createdBy, creationDate, modifyBy, modifyDate)
+        values
+        (#{bill.billCode},#{bill.proCode},#{bill.productName},#{bill.productDesc},#{bill.productUnit},#{bill.productCount},#{bill.totalPrice},#{bill.isPayment},#{bill.createdBy},#{bill.creationDate},#{bill.modifyBy},#{bill.modifyDate})
+    </insert>
+
+    <update id="updateBill" parameterType="Bill">
+        update smbms_bill
+        set
+        productName=#{bill.productName},productUnit=#{bill.productUnit},productCount=#{bill.productCount},totalPrice=#{bill.totalPrice},proCode=#{bill.proCode},isPayment=#{bill.isPayment},modifyBy=#{bill.modifyBy},modifyDate=#{bill.modifyDate}
+        where billCode=#{bill.billCode};
+    </update>
+
+    <select id="getBillInfoByBillCode"  resultType="com.shane.smbms.vo.BillInfo">
+        select
+        b.billCode,b.proCode,p.proName,b.productName,b.productUnit,b.productCount,b.totalPrice,b.isPayment,b.createdBy,b.creationDate
+        from smbms_bill b,smbms_provider p
+        where
+        b.billCode=#{billCode} and b.proCode=p.proCode;
+    </select>
+
+</mapper>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shane.smbms.dao.ProviderDao">
+    <select id="selectProviderListByName" resultType="Provider">
+        select * from smbms_provider
+        where proName like concat('%',#{proName},'%')
+    </select>
+
+    <insert id="insertProvider" parameterType="Provider" useGeneratedKeys="true" keyProperty="provider.proCode">
+        <selectKey keyProperty="provider.proCode" resultType="java.lang.String" order="BEFORE">
+            select REPLACE(uuid(),'-','')
+        </selectKey>
+        insert into
+        smbms_provider
+        (proCode, proName, proDesc, proContact, proPhone, proAddress, proFax, createdBy, creationDate, modifyDate, modifyBy)
+        values
+        (#{provider.proCode},#{provider.proName},#{provider.proDesc},#{provider.proContact},#{provider.proPhone},#{provider.proAddress},#{provider.proFax},#{provider.createdBy},#{provider.creationDate},#{provider.modifyDate},#{provider.modifyBy})
+    </insert>
+
+    <update id="updateProvider" parameterType="Provider">
+        update smbms_provider
+        set
+        proName=#{provider.proName},proContact=#{provider.proContact},
+        proPhone=#{provider.proPhone},proAddress=#{provider.proAddress},proFax=#{provider.proFax},proDesc=#{provider.proDesc}
+        where
+        id=#{provider.id}
+    </update>
+</mapper>

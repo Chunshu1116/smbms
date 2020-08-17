@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="css/style.css"/>
     <script src="js/jquery.js"></script>
 </head>
-<body class="login_bg" onload="user.isLogin()">
+<body class="login_bg" >
     <section class="loginBox">
         <header class="loginHeader">
             <h1>超市账单管理系统</h1>
@@ -25,7 +25,7 @@
                     <span id="login_message" style="color: red"></span>
                 </div>
                 <div class="subBtn">
-                    <input type="button" onclick="login()" value="登录" />
+                    <input type="button" onclick="login.login()" value="登录" />
                     <input type="reset" value="重置"/>
                 </div>
 
@@ -35,24 +35,25 @@
 
 </body>
 <script src="js/user.js"></script>
-<script>
-    function login(){
-        var username=$("#user").val();
-        var password=$("#mima").val();
-        $.get('/login/'+username+"/"+password,function (data) {
-            if(data.success){
-                //登录成功
-                var user=data.data.user;
-                var date=new Date();
-                date.setTime(date.getTime()+24*60*60*1000);
-                document.cookie="userName="+username+"; expires="+date.toUTCString();
-                document.cookie="userId="+user.id+"; expires="+date.toUTCString();
-                window.location="welcome.html";
-            }else {
-                console.log(data.message);
-                $("#login_message").text(data.message);
-            }
-        })
-    }
-</script>
+<script src="js/login.js"></script>
+<!--<script>-->
+<!--    function login(){-->
+<!--        var username=$("#user").val();-->
+<!--        var password=$("#mima").val();-->
+<!--        $.get('/login/'+username+"/"+password,function (data) {-->
+<!--            if(data.success){-->
+<!--                //登录成功-->
+<!--                var user=data.data.user;-->
+<!--                var date=new Date();-->
+<!--                date.setTime(date.getTime()+24*60*60*1000);-->
+<!--                document.cookie="userName="+username+"; expires="+date.toUTCString();-->
+<!--                document.cookie="userId="+user.id+"; expires="+date.toUTCString();-->
+<!--                window.location="admin/welcome.html";-->
+<!--            }else {-->
+<!--                console.log(data.message);-->
+<!--                $("#login_message").text(data.message);-->
+<!--            }-->
+<!--        })-->
+<!--    }-->
+<!--</script>-->
 </html>

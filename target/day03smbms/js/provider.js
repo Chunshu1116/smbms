@@ -25,9 +25,9 @@ var provider={
                 "                <td>"+proList[i].proFax+"</td>\n" +
                 "                <td>"+createTime+"</td>\n" +
                 "                <td>\n" +
-                "                    <a onclick=\"provider.goToProViewPage()\"><img src=\"img/read.png\" alt=\"查看\" title=\"查看\"/></a>\n" +
-                "                    <a onclick=\"provider.goToProUpdatePage()\"><img src=\"img/xiugai.png\" alt=\"修改\" title=\"修改\"/></a>\n" +
-                "                    <a onclick=\"provider.showRemovePro()\"><img src=\"img/schu.png\" alt=\"删除\" title=\"删除\"/></a>\n" +
+                "                    <a onclick=\"provider.goToProViewPage()\"><img src=\"../img/read.png\" alt=\"查看\" title=\"查看\"/></a>\n" +
+                "                    <a onclick=\"provider.goToProUpdatePage()\"><img src=\"../img/xiugai.png\" alt=\"修改\" title=\"修改\"/></a>\n" +
+                "                    <a onclick=\"provider.showRemovePro()\"><img src=\"../img/schu.png\" alt=\"删除\" title=\"删除\"/></a>\n" +
                 "                </td>\n" +
                 "            </tr>";
             $("#table_proList tbody").append(text);

@@ -10,18 +10,23 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 @RestController
 public class LoginController {
     @Autowired
     private UserService userService;
 
     @GetMapping("/login/{username}/{password}")
-    public CommonResult login(@PathVariable String username,@PathVariable String password){
+    public CommonResult login(@PathVariable String username, @PathVariable String password, HttpSession session){
         User user = userService.queryUserByUserName(username);
         if(user==null){
             return CommonResult.error().message("用户名不存在");
         }else {
             if(user.getUserPassword().equals(password)){
+                session.setAttribute("user",user.getUserName());
+                session.setMaxInactiveInterval(30*60);
                 return CommonResult.ok().data("user",user);
             }else {
                 return CommonResult.error().message("密码错误");

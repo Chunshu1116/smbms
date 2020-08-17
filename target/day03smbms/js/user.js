@@ -69,9 +69,9 @@ var user={
                         "                    <td>"+usersByName[i].phone+"</td>\n" +
                         "                    <td>"+user.getUserType(usersByName[i].userType)+"</td>\n" +
                         "                    <td>\n" +
-                        "                        <a onclick=\"user.goToUserViewPage()\"><img src=\"img/read.png\" alt=\"查看\" title=\"查看\"/></a>\n" +
-                        "                        <a onclick=\"user.goToUserUpdatePage()\"><img src=\"img/xiugai.png\" alt=\"修改\" title=\"修改\"/></a>\n" +
-                        "                        <a onclick=\"user.showRemoveUser()\"><img src=\"img/schu.png\" alt=\"删除\" title=\"删除\"/></a>\n" +
+                        "                        <a onclick=\"user.goToUserViewPage()\"><img src=\"../img/read.png\" alt=\"查看\" title=\"查看\"/></a>\n" +
+                        "                        <a onclick=\"user.goToUserUpdatePage()\"><img src=\"../img/xiugai.png\" alt=\"修改\" title=\"修改\"/></a>\n" +
+                        "                        <a onclick=\"user.showRemoveUser()\"><img src=\"../img/schu.png\" alt=\"删除\" title=\"删除\"/></a>\n" +
                         "                    </td>\n" +
                         "                </tr>";
                     $("#table_userList tbody").append(text);
@@ -125,9 +125,9 @@ var user={
                 "                    <td>"+userList[i].phone+"</td>\n" +
                 "                    <td>"+user.getUserType(userList[i].userType)+"</td>\n" +
                 "                    <td>\n" +
-                "                        <a onclick=\"user.goToUserViewPage()\"><img src=\"img/read.png\" alt=\"查看\" title=\"查看\"/></a>\n" +
-                "                        <a onclick=\"user.goToUserUpdatePage()\"><img src=\"img/xiugai.png\" alt=\"修改\" title=\"修改\"/></a>\n" +
-                "                        <a onclick=\"user.showRemoveUser()\"><img src=\"img/schu.png\" alt=\"删除\" title=\"删除\"/></a>\n" +
+                "                        <a onclick=\"user.goToUserViewPage()\"><img src=\"../img/read.png\" alt=\"查看\" title=\"查看\"/></a>\n" +
+                "                        <a onclick=\"user.goToUserUpdatePage()\"><img src=\"../img/xiugai.png\" alt=\"修改\" title=\"修改\"/></a>\n" +
+                "                        <a onclick=\"user.showRemoveUser()\"><img src=\"../img/schu.png\" alt=\"删除\" title=\"删除\"/></a>\n" +
                 "                    </td>\n" +
                 "                </tr>";
             $("#table_userList tbody").append(text);
@@ -137,32 +137,14 @@ var user={
         $.get('/user/list',function(data){
             var users=data.data.users;
             var userList=users.list;
-            // console.log("userList------------------------22222222222222");
-            // console.log(userList);
             user.showUserList(userList);
             user.handleUserListPage(users);
-            // var text="";
-            // text="<a class=\"page-current\" type=\"button\" onclick=\"user.getUserPageList(1,5)\"\n" +
-            //     "                       aria-label=\"Previous\">首页</a>\n" +
-            //     "\n" +
-            //     "                    <a type=\"button\" class=\"previous-page\"\n" +
-            //     "                       onclick=\"user.getUserPageList(users.pageNum-1,5)\">上一页</a>";
-            //
-            // for(var i=1;i<=users.pages;i++){
-            //     text=text+"<a type=\"button\" onclick=\"user.getUserPageList(i,5)\">"+i+"</a>";
-            // }
-            // text=text+"<a type=\"button\" class=\"page-next\" onclick=\"user.getUserPageList(users.pageNum+1,5)\">下一页</a>\n" +
-            //     "                    <a type=\"button\" onclick=\"user.getUserPageList(users.pages,5)\"\n" +
-            //     "                       aria-label=\"Next\">尾页</a>";
-            // $("#user_page_bar").html(text);
         })
     },
     getUserPageList:function (page,limit) {
         $.get('/user/list?page='+page+"&limit="+limit,function(data){
             var users=data.data.users;
             var userList=users.list;
-            // console.log("userList------------------------22222222222222");
-            // console.log(userList);
             user.showUserList(userList);
             user.handleUserListPage(users);
         })
@@ -255,14 +237,23 @@ var user={
         $("#loginUserName2").text(user.loginUser.userName);
     },
     //登出
-    logout:function () {
-        // user.getInfoFromCookie();
+    // logout:function () {
+    //     user.getInfoFromCookie();
+    //     var date=new Date();
+    //     date.setTime(date.getTime()-24*60*60*1000);
+    //     //登出时清空cookie
+    //     // document.cookie="userName=x; expires="+date.toUTCString();
+    //     // user.setCookieByName("userName",'',-1);
+    //     // user.setCookieByName("userId",'',-1);
+    //     document.cookie="userName="+user.loginUser.userName+"; expires="+date.toUTCString();
+    //     document.cookie="userId="+user.loginUser.userName+"; expires="+date.toUTCString();
+    //     // document.cookie="userId=x; expires="+date.toUTCString();
+    //     window.location="../login.html";
+    // },
+    setCookieByName:function (cookieName,value,time) {
         var date=new Date();
-        date.setTime(date.getTime()-1000*5);
-        //登出时清空cookie
-        document.cookie="userName="+user.loginUser.userName+"; expires="+date.toUTCString();
-        document.cookie="userId="+user.loginUser.userName+"; expires="+date.toUTCString();
-        window.location="login.html";
+        date.setTime(date.getTime()+time*60*1000);
+        document.cookie=cookieName+"="+value+"; expires="+date.toUTCString();
     },
     //添加用户
     addUser:function () {
@@ -461,8 +452,5 @@ var user={
     },
     hideRemoveUser:function () {
         $("#removeUser").hide();
-    },
-    changePassword:function () {
-
     }
 };

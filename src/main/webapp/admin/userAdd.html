@@ -3,18 +3,18 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title>超市账单管理系统</title>
-    <link rel="stylesheet" href="css/public.css"/>
-    <link rel="stylesheet" href="css/style.css"/>
-    <script src="js/jquery.js"></script>
+    <link rel="stylesheet" href="../css/public.css"/>
+    <link rel="stylesheet" href="../css/style.css"/>
+    <script src="../js/jquery.js"></script>
 </head>
-<body onload="user.printModifyUserInfo()">
+<body>
 <!--头部-->
 <header class="publicHeader">
     <h1>超市账单管理系统</h1>
 
     <div class="publicHeaderR">
         <p><span>下午好！</span><span id="loginUserName1" style="color: #fff21b"> </span> , 欢迎你！</p>
-        <a href="login.html">退出</a>
+        <a onclick="login.logout()">退出</a>
     </div>
 </header>
 <!--时间-->
@@ -32,31 +32,47 @@
                 <li ><a href="providerList.html">供应商管理</a></li>
                 <li id="active"><a href="userList.html">用户管理</a></li>
                 <li><a href="password.html">密码修改</a></li>
-                <li><a onclick="user.logout()">退出系统</a></li>
+                <li><a onclick="login.logout()">退出系统</a></li>
             </ul>
         </nav>
     </div>
     <div class="right">
         <div class="location">
             <strong>你现在所在的位置是:</strong>
-            <span>用户管理页面 >> 用户修改页面</span>
+            <span>用户管理页面 >> 用户添加页面</span>
         </div>
         <div class="providerAdd">
             <form action="#">
                 <!--div的class 为error是验证错误，ok是验证成功-->
+                <div class="">
+                    <label for="userId">用户编码：</label>
+                    <input type="text" name="userId" id="userId"/>
+                    <span>*请输入用户编码，且不能重复</span>
+                </div>
                 <div>
                     <label for="userName">用户名称：</label>
                     <input type="text" name="userName" id="userName"/>
-                    <span >*</span>
+                    <span >*请输入用户名称</span>
                 </div>
+                <div>
+                    <label for="userpassword">用户密码：</label>
+                    <input type="text" name="userpassword" id="userpassword"/>
+                    <span>*密码长度必须大于6位小于20位</span>
 
+                </div>
+                <div>
+                    <label for="userRemi">确认密码：</label>
+                    <input type="text" name="userRemi" id="userRemi"/>
+                    <span>*请输入确认密码</span>
+                </div>
                 <div>
                     <label >用户性别：</label>
 
-                    <select name="" id="userGender">
+                    <select id="userGender">
                         <option value="2">男</option>
                         <option value="1">女</option>
                     </select>
+                    <span></span>
                 </div>
                 <div>
                     <label for="data">出生日期：</label>
@@ -66,7 +82,7 @@
                 <div>
                     <label for="userphone">用户电话：</label>
                     <input type="text" name="userphone" id="userphone"/>
-                    <span>*</span>
+                    <span >*</span>
                 </div>
                 <div>
                     <label for="userAddress">用户地址：</label>
@@ -78,11 +94,11 @@
                     <input type="radio" name="userlei" value="2"/>经理
                     <input type="radio" name="userlei" value="3"/>普通用户
                 </div>
-                <div id="result_message_modifyUser"></div>
+                <div id="result_message_addUser"></div>
                 <div class="providerAddBtn">
                     <!--<a href="#">保存</a>-->
                     <!--<a href="userList.html">返回</a>-->
-                    <input type="button" value="保存" onclick="user.modifyUser()"/>
+                    <input type="button" value="保存" onclick="user.addUser()"/>
                     <input type="button" value="返回" onclick="history.back(-1)"/>
                 </div>
             </form>
@@ -93,7 +109,8 @@
 <footer class="footer">
     
 </footer>
-<script src="js/time.js"></script>
-<script src="js/user.js"></script>
+<script src="../js/time.js"></script>
+<script src="../js/user.js"></script>
+<script src="../js/login.js"></script>
 </body>
 </html>
